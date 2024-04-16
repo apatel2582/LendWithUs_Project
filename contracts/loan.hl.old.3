@@ -1,0 +1,50 @@
+spending loan
+const VERSION: String = "v0.0.3" 
+
+struct LoanDatum {
+    lender: PubKeyHash
+    borrower: PubKeyHash
+    deadline: Time
+    principalAmount: Int
+    interestRate: Int
+    paymentDone: Bool
+}
+
+enum Redeemer {
+    MakePayment {
+        amount: Int
+    }
+    Default
+    Claim {
+        msg: String
+        amount: Int
+    }
+    
+}
+
+const MESSAGE: String = "Hello World!"
+
+func main(datum: LoanDatum, redeemer: Redeemer, ctx: ScriptContext) -> Bool {
+    tx: Tx = ctx.tx;
+    print("Version: " + VERSION);
+    now: Time = tx.time_range.start;
+
+    totalDue: Int = datum.principalAmount + (datum.principalAmount * datum.interestRate / 100);
+
+    redeemer.switch {
+        red: MakePayment => {
+            red.amount >= totalDue &&
+            !datum.paymentDone &&
+            now < datum.deadline
+        },
+        Default => {
+            now>= datum.deadline &&
+            !datum.paymentDone &&
+            tx.is_signed_by(datum.lender) 
+        },
+        red: Claim => {
+            red.msg == MESSAGE &&
+            red.amount <= datum.principalAmount
+        }
+    }    
+}

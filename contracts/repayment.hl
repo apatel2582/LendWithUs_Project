@@ -1,0 +1,26 @@
+spending borrower_repayment
+const VERSION: String = "v0.0.2" 
+
+struct RepaymentDatum {
+    lender: PubKeyHash
+    borrower: PubKeyHash
+    totalDue: Int
+}
+
+enum RepaymentActions {
+    Claim {
+        msg: String
+    }
+}
+
+const MESSAGE: String = "itsreallyworking"
+
+func main(_, redeemer: RepaymentActions, _) -> Bool {
+    print("Borrower Repayment Version: " + VERSION);
+
+    redeemer.switch {
+        red: Claim => {
+            red.msg == MESSAGE
+        }
+    }    
+}

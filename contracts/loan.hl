@@ -1,0 +1,39 @@
+spending lender_loan_deposit
+const VERSION: String = "v0.0.4" 
+
+struct LoanDatum {
+    lender: PubKeyHash
+    borrower: PubKeyHash
+    principalAmount: Int
+    totalDue: Int
+    deadline: Time
+    interestRate: Int
+    paymentDone: Bool
+}
+
+enum LoanActions {
+    Default
+    Claim {
+        msg: String
+    }
+    
+}
+
+const MESSAGE: String = "itsworking"
+
+func main(datum: LoanDatum, redeemer: LoanActions, ctx: ScriptContext) -> Bool {
+    tx: Tx = ctx.tx;
+    print("Loan Version: " + VERSION);
+    now: Time = tx.time_range.start;
+
+    redeemer.switch {
+        Default => {
+            now>= datum.deadline &&
+            !datum.paymentDone &&
+            tx.is_signed_by(datum.lender) 
+        },
+        red: Claim => {
+            red.msg == MESSAGE
+        }
+    }    
+}

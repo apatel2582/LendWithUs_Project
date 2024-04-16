@@ -1,0 +1,6 @@
+{
+  "lenderAddress": "addr_test1qz85p0a5ezcvx88rtt57xwr8kxhkqn7lse9ca0zynq5vqenuun9z9g2gknjjcu3wh7fcw4a44f5dy8j6xn2x7wdj4mjqw9yasr",
+  "borrowerAddress": "addr_test1qrz3hacfmzrsgrfraptt2kgwsgmj0s4jy68269dnphqwfs064m3kngmhdp35ue0ydswdyms8w2fw6a69zx7k27daa9yshsdkzh",
+  "principalAmount": -1000000,
+  "totalDue": -1100000
+}

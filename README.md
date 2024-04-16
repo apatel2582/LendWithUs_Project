@@ -10,6 +10,10 @@ It is a work in progress and is not yet ready for production.
 
 Make sure to create a `.env` file. A sample `.env` file is provided in the `.env.sample` file.
 
+This is vercel deployment link: [LendWithUs](https://lend-with-us-project.vercel.app/)
+
+Note: The link is only for testing purposes and may not work as expected. It is better to run the project locally.
+
 ---
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
